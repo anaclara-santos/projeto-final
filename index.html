@@ -14,13 +14,13 @@
 
   <style>
     :root{
-      --glass: rgba(26, 116, 200, 0.08);
-      --glass-strong: rgba(215, 17, 109, 0.14);
+      --glass: rgb(26, 116, 200);
+      --glass-strong: rgb(230, 78, 148);
     }
     body { font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
     /* Sutil brilho ao passar o mouse nos cards */
     .card:hover {
-      box-shadow: 0 10px 30px rgba(218, 10, 159, 0.584);
+      box-shadow: 0 10px 30px rgb(228, 48, 177);
       transform: translateY(-2px);
     }
     .fade-in {
@@ -34,7 +34,7 @@
     .no-scroll { overflow: hidden; }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-pink-600 via-fuchsia-600 to-blue-700 text-white">
+<body class="min-h-screen bg-gradient-to-br from-pink-600 via-blue-600 to-blue-700 text-white">
   <!-- Top header -->
   <header class="relative">
     <div class="absolute inset-0 opacity-30 pointer-events-none">
@@ -56,27 +56,30 @@
     </div>
 
     <div class="relative max-w-6xl mx-auto px-4 pt-10 pb-6">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div class="flex items-center justify-between gap-6 flex-wrap"></div>
         <div>
-          <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
+           <img src="IMG_1559.JPG" alt="ERRO" 
+       class="w-12 h-12 rounded-full border-2 border-white object-cover">
+       <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
             Doces Maybel
           </h1>
+           
+</div>
           <p class="text-white/80 mt-2 max-w-prose">
-            Sabor que abraça. Escolha um doce para ver os ingredientes e o valor.
+            <h2>Sabor que abraça. Escolha um doce para ver os ingredientes e o valor.</h2>
           </p>
         </div>
 
         <!-- Barra de busca -->
-        <div class="w-full md:w-96">
-          <label class="block text-sm text-white/80 mb-2" for="search">Buscar</label>
-          <div class="flex items-center gap-2 bg-white/10 border border-white/15 rounded-2xl px-4 py-3 backdrop-blur-xl focus-within:ring-2 focus-within:ring-white/30">
-            <span aria-hidden="true">🔎</span>
-            <input id="search" type="text" placeholder="Ex.: brigadeiro, bolo, pudim…" class="w-full bg-transparent placeholder-white/60 text-white outline-none">
-            <button id="clearSearch" class="text-white/70 hover:text-white transition">Limpar</button>
-          </div>
-        </div>
-      </div>
-    </div>
+      <div class="w-full md:w-96 mx-auto mt-4 mb-10">
+  <label class="block text-sm text-white/80 mb-2" for="search">Buscar</label>
+  <div class="flex items-center gap-2 bg-white/10 border border-white/15 rounded-2xl px-4 py-3 backdrop-blur-xl focus-within:ring-2 focus-within:ring-white/30">
+    <span aria-hidden="true">🔎</span>
+    <input id="search" type="text" placeholder="Ex.: brigadeiro, bolo, pudim…" class="w-full bg-transparent placeholder-white/60 text-white outline-none">
+    <button id="clearSearch" class="text-white/70 hover:text-white transition">Limpar</button>
+  </div>
+</div>
+
   </header>
 
   <!-- Conteúdo -->
@@ -84,8 +87,9 @@
     <!-- Categorias simples -->
     <div class="flex flex-wrap items-center gap-3 mb-6">
       <button data-category="todas" class="cat-btn active bg-white/15 text-white px-4 py-2 rounded-full border border-white/20 hover:bg-white/20 transition">Todas</button>
-      <button data-category="bolos" class="cat-btn bg-white/10 text-white px-4 py-2 rounded-full border border-white/10 hover:bg-white/20 transition">Bolos</button>
       <button data-category="docinhos" class="cat-btn bg-white/10 text-white px-4 py-2 rounded-full border border-white/10 hover:bg-white/20 transition">Docinhos</button>
+      <button data-category="docinhos goumert" class="cat-btn bg-white/10 text-white px-4 py-2 rounded-full border border-white/10 hover:bg-white/20 transition">Docinhos goumert</button> 
+       <button data-category="docinhos tradicional" class="cat-btn bg-white/10 text-white px-4 py-2 rounded-full border border-white/10 hover:bg-white/20 transition">Docinhos tradicional</button>
       <button data-category="sobremesas" class="cat-btn bg-white/10 text-white px-4 py-2 rounded-full border border-white/10 hover:bg-white/20 transition">Sobremesas</button>
     </div>
 
@@ -93,19 +97,26 @@
     <section id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></section>
   </main>
 
-  <!-- Painel de detalhes (modal pequeno) -->
-  <div id="overlay" class="hidden fixed inset-0 z-40 bg-black/50"></div>
+<!-- Painel de detalhes (modal grande centralizado) -->
+<div id="overlay" class="hidden fixed inset-0 z-40 bg-black/50"></div>
 
-  <div id="detailPanel" class="hidden fixed inset-x-4 top-1/2 -translate-y-1/2 z-50 max-w-md mx-auto bg-white/10 border border-white/20 rounded-3xl p-5 backdrop-blur-xl shadow-2xl fade-in">
+<div id="detailPanel" 
+     class="hidden fixed inset-0 flex items-center justify-center z-50 p-4 fade-in">
+  <div class="w-full max-w-2xl bg-white/10 border border-white/20 rounded-3xl p-6 
+              backdrop-blur-xl shadow-2xl text-white overflow-y-auto max-h-[90vh]">
     <div class="flex items-start gap-4">
-      <div class="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 overflow-hidden flex items-center justify-center shrink-0">
-        <img id="detailImage" src="" alt="Imagem do produto" class="w-full h-full object-cover" onerror="this.src=''; this.alt='Imagem não carregou'; this.style.display='none';">
-        <span class="text-2xl" id="detailFallback">🍰</span>
+      <div class="w-20 h-20 rounded-2xl bg-white/10 border border-white/20 overflow-hidden flex items-center justify-center shrink-0">
+        <img id="detailImage" src="" alt="Imagem do produto" class="w-full h-full object-cover"
+             onerror="this.src=''; this.alt='Imagem não carregou'; this.style.display='none';">
+        <span class="text-3xl" id="detailFallback">🍰</span>
       </div>
       <div class="flex-1">
         <div class="flex items-start justify-between gap-4">
-          <h3 id="detailTitle" class="text-xl font-bold">Título</h3>
-          <button id="closePanel" class="text-white/80 hover:text-white bg-white/10 border border-white/20 rounded-full px-3 py-1">Fechar</button>
+          <h3 id="detailTitle" class="text-2xl font-bold">Título</h3>
+          <button id="closePanel" 
+                  class="text-white/80 hover:text-white bg-white/10 border border-white/20 rounded-full px-3 py-1">
+            Fechar
+          </button>
         </div>
         <p id="detailCategory" class="text-white/70 text-sm mt-1">Categoria</p>
 
@@ -113,7 +124,7 @@
           <p class="font-semibold mb-2">Ingredientes:</p>
           <ul id="detailIngredients" class="list-disc list-inside space-y-1 text-white/90"></ul>
         </div>
-
+         
         <div class="mt-4 flex items-center justify-between">
           <div>
             <p class="text-white/70 text-sm">Porção</p>
@@ -121,16 +132,19 @@
           </div>
           <div class="text-right">
             <p class="text-white/70 text-sm">Valor</p>
-            <p id="detailPrice" class="text-2xl font-extrabold">R$ 0,00</p>
+            <p id="detailPrice" class="text-3xl font-extrabold">R$ 0,00</p>
           </div>
         </div>
-
+<div class="mt-4">
         <div class="mt-5 flex items-center gap-3">
-          <button id="btnMenos" class="bg-white/10 border border-white/20 hover:bg-white/20 rounded-full w-10 h-10">−</button>
+          <button id="btnMenos" 
+                  class="bg-white/10 border border-white/20 hover:bg-white/20 rounded-full w-10 h-10">−</button>
           <span id="qty" class="min-w-10 text-center font-semibold">1</span>
-          <button id="btnMais" class="bg-white/10 border border-white/20 hover:bg-white/20 rounded-full w-10 h-10">+</button>
+          <button id="btnMais" 
+                  class="bg-white/10 border border-white/20 hover:bg-white/20 rounded-full w-10 h-10">+</button>
           <div class="ml-auto">
-            <button id="copyInfo" class="bg-emerald-400/90 hover:bg-emerald-400 text-emerald-950 font-semibold px-4 py-2 rounded-full shadow">
+            <button id="copyInfo" 
+                    class="bg-emerald-400/90 hover:bg-emerald-400 text-emerald-950 font-semibold px-4 py-2 rounded-full shadow">
               Copiar detalhes
             </button>
           </div>
@@ -138,6 +152,7 @@
       </div>
     </div>
   </div>
+</div>
 
   <!-- Rodapé simples -->
   <footer class="relative border-t border-white/10 bg-white/5">
@@ -151,60 +166,206 @@
     // Dados dos produtos (amostra pequena)
     const produtos = [
       {
-        id: 'brigadeiro-gourmet',
-        nome: 'Brigadeiro Gourmet',
-        imagem: '', // Cole aqui a URL completa da sua imagem (ex.: https://...)
-        categoria: 'docinhos',
-        porcao: 'Unidade',
-        preco: 3.5,
-        ingredientes: ['Leite condensado', 'Cacau 50%', 'Manteiga', 'Granulado belga']
+        id: 'brigadeiro-tradicional',
+        nome: 'Brigadeiro tradicional',
+        imagem: 'https://eadgourmet.com.br/wp-content/uploads/brigadeiro-gourmet-tradicional-500x500.jpg', // Cole aqui a URL completa da sua imagem (ex.: https://...)
+        categoria: 'docinhos tradicional' ,
+        porcao: 'Cento',
+        preco: 105.00,
+        ingredientes: ['Leite condensado', 'Cacau 50%', 'Manteiga', 'Granulado ']
       },
       {
         id: 'beijinho-tradicional',
         nome: 'Beijinho Tradicional',
-        imagem: '',
-        categoria: 'docinhos',
-        porcao: 'Unidade',
-        preco: 3.5,
+        imagem: 'https://www.mamacida.com.br/image/cache/data/produtos/beijinho-de-coco-650x650.png',
+        categoria: 'docinhos tradicional',
+        porcao: 'Cento',
+        preco: 105.00,
         ingredientes: ['Leite condensado', 'Coco ralado', 'Manteiga', 'Cravo']
       },
       {
-        id: 'bolo-cenoura',
-        nome: 'Bolo de Cenoura c/ Chocolate',
-        imagem: 'https://receitatodahora.com.br/wp-content/uploads/2018/07/bolo-de-cenoura-com-cobertura-de-chocolate-e-mel-1200x900.jpg',
-        categoria: 'bolos',
-        porcao: 'Fatia',
-        preco: 9.9,
-        ingredientes: ['Cenoura fresca', 'Ovos', 'Açúcar', 'Farinha', 'Cobertura de chocolate']
-      },
-      {
-        id: 'pudim-leite',
-        nome: 'Pudim de Leite',
-        imagem: '',
-        categoria: 'sobremesas',
-        porcao: 'Fatia',
-        preco: 11.9,
-        ingredientes: ['Leite condensado', 'Leite', 'Ovos', 'Calda de caramelo']
-      },
-      {
-        id: 'quindim',
-        nome: 'Quindim',
-        imagem: '',
-        categoria: 'sobremesas',
-        porcao: 'Unidade',
-        preco: 7.5,
-        ingredientes: ['Gemas', 'Açúcar', 'Coco', 'Manteiga']
-      },
-      {
-        id: 'torta-morango',
-        nome: 'Torta de Morango',
-        imagem: '',
-        categoria: 'sobremesas',
-        porcao: 'Fatia',
-        preço: 14.0,
-        ingredientes: ['Massa crocante', 'Creme pâtissier', 'Morangos frescos', 'Geleia']
+        id: 'Brigadeiro de ninho',
+        nome: 'Brigadeiro de ninho',
+        imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPGODy18CRSPT6mUTT6mP9Vr31LbVTSedA4w&s',
+        categoria: 'docinhos tradicional',
+        porcao: 'Cento',
+        preco: 105.00,
+        ingredientes: ['Leite condensado', 'Coco ralado', 'Manteiga', 'Cravo']
       },
       
+      {
+        id: 'Brigadeiro bicho de pé',
+        nome: 'Brigadeiro bicho de pé',
+        imagem: 'https://espaconatelie.com.br/wp-content/uploads/2025/03/bicho-de-pe-delicioso-receita-completa.jpg',
+        categoria: 'docinhos tradicional',
+        porcao: 'Cento',
+        preco: 105.00,
+        ingredientes: ['Leite condensado', 'Coco ralado', 'Manteiga', 'Cravo']
+      },
+
+      {
+        id: 'brigadeiro goumert',
+        nome: 'Brigadeiro goumert',
+        imagem: 'https://harald.com.br/wp-content/uploads/2020/04/briadeirogormet-melken-700x520-1.jpg',
+        categoria: 'docinhos goumert',
+        porcao: 'cento',
+        preco: 120.00,
+        ingredientes: ['Leite condensado', 'Cacau 50%','manteiga','granulado belga']
+        
+      },
+
+      {
+        id: 'brigadeiro de paçoca com amendoim',
+        nome: 'Brigadeiro de paçoca com amendoim',
+        imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2XhcEabmrHm6Vewpr26X9WSBCvLpfrw97kg&s',
+        categoria: 'docinhos goumert',
+        porcao: 'cento',
+        preco: 120.00,
+        ingredientes: ['manteiga','leite condensado','paçoca','creme de leite','amendoim']
+        },
+
+      {
+        id: 'brigadeiro de chocolate branco',
+        nome: 'Brigadeiro de chocolate branco',
+        imagem: 'https://i.ytimg.com/vi/1kzWdeUD7-0/maxresdefault.jpg',
+        categoria: 'docinhos goumert',
+        porcao: 'cento',
+        preco: 120.00,
+        ingredientes: ['leite condensado','manteiga','chocolate branco']
+        
+      },
+
+      {
+        id: 'brigadeiro de oreo',
+        nome: 'Brigadeiro de oreo',
+        imagem: 'https://dcdn-us.mitiendanube.com/stores/003/929/349/products/oip-f64f0405c38cc3390a16993836226858-640-0.jpeg',
+        categoria: 'docinhos goumert',
+        porcao: 'cento',
+        preco: 120.00,
+        ingredientes: ['leite condensado','creme de leite','oreo','manteiga']
+        
+      },
+
+      {
+        id: 'brigadeiro de churros',
+        nome: 'Brigadeiro de churros',
+        imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkjzaZri27WZXWtUMeEIneDZvCgi_f44yWRQ&s',
+        categoria: 'docinhos goumert',
+        porcao: 'cento',
+        preco: 120.00,
+        ingredientes: ['leite condensado','doce de leite','manteiga','canela em pó','açúcar refinado']
+        
+      },
+
+      {
+        id: 'brigadeiron de ninho com nutella ',
+        nome: 'Brigadeiro de ninho com nutella',
+        imagem: 'https://www.doceiguaria.com.br/wp-content/uploads/2021/01/Brigadeiro-de-ninho-com-nutella.jpg',
+        categoria: 'docinhos goumert',
+        porcao: 'cento',
+        preco: 120.00,
+        ingredientes: ['leite condensado','leite em pó','creme de leite','nutella','manteiga']
+        
+      },
+
+      {
+        id: 'surpresa de uva',
+        nome: 'Surpresa de uva',
+        imagem: '',
+        categoria: 'docinhos goumert',
+        porcao: 'cento',
+        preco: 135.00,
+        ingredientes: ['leite condensado','manteiga','creme de leite','uva','leite em pó']
+        
+      },
+
+      {
+        id: 'camafeu',
+        nome: 'Camafeu',
+        imagem: '',
+        categoria: 'docinhos goumert',
+        porcao: 'cento',
+        preco: 135.00,
+        ingredientes: ['leite condensado','manteiga','nozes moídas','açúcar de confeiteiro','leite']
+        
+      },
+
+      {
+        id: 'olho de sogra',
+        nome: 'Olho de sogra',
+        imagem: '',
+        categoria: 'docinhos goumert,',
+        porcao: 'cento',
+        preco: 135.00,
+      ingredientes: ['coco ralado', 'gema de ovo','essência de baunilha', 'margarina sem sal','leite condensado', 'ameixa preta', 'açúcar cristal']
+
+    },
+
+
+      {
+        id: 'brigadeiro de ovovmaltine',
+        nome: 'Brigadeiro de ovomaltine',
+        imagem: 'https://docesesalgadosbh.com.br/wp-content/uploads/2018/06/brigadeiro-ovomaltine-02.jpg',
+        categoria: 'docinhos goumert',
+        porcao: 'cento',
+        preco: 120.00,
+        ingredientes: ['leite condensado','creme de leite','manteiga','ovovmaltine']
+        
+      }, 
+      
+      {
+        id: 'barra trufada',
+        nome: 'Barra trufada',
+        imagem: '',
+        categoria: 'sobremesas',
+        porcao: 'unidade',
+        preco: 25.00,
+        ingredientes: ['Sabores:','ao leite','ao leite crocante','chocolate branco com oreo','recheios:','brigadeiro','prestígio','ninho','ninho com nutella','brigadeiro crocante','brigadeiro de oreo','nutlla'],
+      },
+
+      {
+        id: 'Bombom de morango',
+        nome: 'Bombom de morango',
+        imagem: 'https://www.estadao.com.br/resizer/v2/Y256SQVTUFH4HJKBCXFSCBE6YE.jpg?quality=80&auth=3e693e16bf6136668880246182b402ad4fe7e2b9b3db231b29d7c6f563597c9f&width=1200&height=1200&smart=true',
+        categoria: 'sobremesas',
+        porcao: 'unidade',
+        preco: 12.00,
+        ingredientes: ['morango', 'brigadeiro branco', 'casquinha de chocolate']
+      },
+      
+      
+      {
+        id: 'Cone trufado',
+        nome: 'Cone trufado',
+        imagem: 'https://ateliedealfajor.com/wp-content/uploads/2024/10/conetrufadobrigadeiro.jpg',
+        categoria: 'sobremesas',
+        porcao: 'Unidade',
+        preco: 8.5,
+        ingredientes: ['cone recheado com:','Brigadeiro','Prestígio','Ferrero','Ninho com nutella']
+      },
+
+      {
+        id: 'pão de mel',
+        nome: 'Pão de mel',
+        imagem: '',
+        categoria: 'sobremesas',
+        porcao: 'unidade',
+        preco: 3.5,
+        ingredientes: ['bolo de pão de mel, doce de leite','casquinha de chocolate']
+        
+      },
+
+      {
+        id: 'brownie',
+        nome: 'Brownie',
+        imagem: '',
+        categoria: 'sobremesas',
+        porcao: 'unidade',
+        preco: 5.5,
+        ingredientes: ['chocolate meio amargo', 'manteiga','açúcar','farinha de trigo','sal','ovo','','coberturas:','brigadeiro','doce de leite','ninho com nutella'] 
+        
+      },
+
     ];
 
 
